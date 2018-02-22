@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+ext {
+    rxJava2Version = '2.1.5'
+    rxAndroid2Version = '2.0.1'
+    rxKotlinVersion = '2.0.0'
+
+    rxDependencies = [
+            rxAndroid2   : "io.reactivex.rxjava2:rxandroid:$rxAndroid2Version",
+            rxJava2: "io.reactivex.rxjava2:rxjava:$rxJava2Version",
+            rxKotlin  : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    ]
+
+    roomVersion = '1.0.0'
+
+    roomDependencies = [
+            roomRuntime: "android.arch.persistence.room:runtime:$roomVersion",
+            rxRoom     : "android.arch.persistence.room:rxjava2:$roomVersion",
+            roomApt    : "android.arch.persistence.room:compiler:$roomVersion"
+    ]
+
+    daggerVersion = '2.11'
+
+    daggerDependencies = [
+            daggerCompiler: "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerAndroid: "com.google.dagger:dagger-android:$daggerVersion",
+            dagger        : "com.google.dagger:dagger:$daggerVersion"
+    ]
+
+}
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.evolve.dagger2room"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation rxDependencies.rxAndroid2
+    implementation rxDependencies.rxKotlin
+    implementation roomDependencies.roomRuntime
+    kapt roomDependencies.roomApt
+    kapt roomDependencies.rxRoom
+    kapt daggerDependencies.daggerCompiler
+    implementation daggerDependencies.daggerAndroid
+    implementation daggerDependencies.dagger
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
