@@ -6,6 +6,7 @@ import android.util.Log
 import com.evolve.dagger2room.di.component.DaggerRepoComponent
 import com.evolve.dagger2room.di.component.RepoComponent
 import com.evolve.dagger2room.di.module.ContextModule
+import com.evolve.dagger2room.di.module.RepoModule
 import com.evolve.dagger2room.model.Repo
 import com.evolve.dagger2room.repository.impl.RepoRepositoryImpl
 import io.reactivex.Observable
@@ -20,19 +21,18 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var repoRepo: RepoRepositoryImpl
 
-    lateinit var repoComponent: RepoComponent
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        repoComponent = DaggerRepoComponent.builder()
+        val repoComponent = DaggerRepoComponent.builder()
                 .contextModule(ContextModule(this))
+                .repoModule(RepoModule())
                 .build()
 
-        repoRepo = repoComponent.getRepoImpl(this)
-
+        repoComponent.inject(this)
         Observable.fromIterable(getData())
+
                 .subscribeOn(Schedulers.io())
                 /*.map { it -> repoRepo.insert(it) }*/
                 .doOnNext { it -> repoRepo.insert(it) }
@@ -43,12 +43,13 @@ class MainActivity : AppCompatActivity() {
                         { Log.e(TAG, "Completed") }
                 )
 
+
     }
 
     fun getData(): List<Repo> {
         return listOf(
-                Repo("1", "Rx", "rx.com"),
-                Repo("2", "Dagger", "dagger.com")
+                Repo("3", "Retrofit", "retrofit.com"),
+                Repo("4", "DataBinding", "databinding.com")
         )
     }
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by sujin on 2/20/18.
  */
-class RepoRepositoryImpl (val context: Context) : RepoRepository {
+class RepoRepositoryImpl @Inject constructor(context: Context) : RepoRepository {
 
     var instance = RepoDatabase.getInstance(context)
 

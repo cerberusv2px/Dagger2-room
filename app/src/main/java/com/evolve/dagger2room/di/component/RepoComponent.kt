@@ -10,8 +10,8 @@ import javax.inject.Singleton
  * Created by sujin on 2/20/18.
  */
 @Singleton
-@Component(modules = arrayOf(RepoModule::class))
+@Component(modules = [(RepoModule::class)])
 interface RepoComponent {
 
-    fun getRepoImpl(activity: MainActivity): RepoRepositoryImpl
+    fun inject(activity: MainActivity)
 }

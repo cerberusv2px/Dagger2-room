@@ -1,37 +1,31 @@
 package com.evolve.dagger2room
 
 import android.app.Application
-import com.evolve.dagger2room.di.component.DaggerRepoComponent
-import com.evolve.dagger2room.di.component.RepoComponent
-import com.evolve.dagger2room.di.module.ContextModule
-import com.evolve.dagger2room.di.module.RepoModule
 import com.facebook.stetho.Stetho
 
 /**
  * Created by sujin on 2/20/18.
  */
+
 class MyApplication : Application() {
 
-    //private lateinit var mRepoComponent: RepoComponent
+    /* companion object {
+         lateinit var repoComponent: RepoComponent
+     }*/
 
     override fun onCreate() {
         super.onCreate()
-       // initDagger()
+        //initDagger()
         initStetho()
     }
-/*
 
-    fun getRepoComponent(): RepoComponent {
-        return mRepoComponent
-    }
 
-    private fun initDagger() {
-        mRepoComponent = DaggerRepoComponent
-                .builder()
+    /*private fun initDagger() {
+        repoComponent = DaggerRepoComponent.builder()
                 .contextModule(ContextModule(this))
+                .repoModule(RepoModule())
                 .build()
-    }
-*/
+    }*/
 
     private fun initStetho() {
         val builder = Stetho.newInitializerBuilder(this)

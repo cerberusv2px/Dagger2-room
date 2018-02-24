@@ -29,9 +29,6 @@ abstract class RepoDatabase : RoomDatabase() {
         }
     }
 
-
-
     abstract fun getRepoDAO(): RepoDAO
-
 
 }

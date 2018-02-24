@@ -11,7 +11,7 @@ import javax.inject.Singleton
 /**
  * Created by sujin on 2/20/18.
  */
-@Module(includes = arrayOf(ContextModule::class))
+@Module(includes = [(ContextModule::class)])
 class RepoModule {
 
     @Provides
